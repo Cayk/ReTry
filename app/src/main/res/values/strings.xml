@@ -4,4 +4,19 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
+    <string name="retry">ReTry</string>
+    <string name="email">email</string>
+    <string name="senha">senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="esqueciSenha">Esqueci minha senha</string>
+    <string name="criarConta">Criar uma nova conta</string>
+    <string name="title_activity_esqueci_senha">EsqueciSenha</string>
+    <string name="title_activity_cadastro">Cadastro</string>
+    <string name="nome">Nome</string>
+    <string name="Email">Email</string>
+    <string name="Senha">Senha</string>
+    <string name="confSenha">Confirmar Senha</string>
+    <string name="criar">Criar</string>
+    <string name="NovaSenha">Preencha o campo a baixo para gerar uma nova senha.</string>
+    <string name="novaSenha">Nova Senha</string>
 </resources>

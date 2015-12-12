@@ -20,6 +20,14 @@
             android:name=".Login"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name=".EsqueciSenha"
+            android:label="@string/title_activity_esqueci_senha" >
+        </activity>
+        <activity
+            android:name=".Cadastro"
+            android:label="@string/title_activity_cadastro" >
+        </activity>
     </application>
 
 </manifest>
