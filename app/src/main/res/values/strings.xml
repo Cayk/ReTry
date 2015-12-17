@@ -23,4 +23,5 @@
     <string name="Nome">Nome</string>
     <string name="confirmarSenha">Confirmar Senha</string>
     <string name="editar">Editar</string>
+    <string name="title_activity_historico_reciclagem">Histórico de Reciclagem</string>
 </resources>
