@@ -10,7 +10,7 @@
     <string name="entrar">Entrar</string>
     <string name="esqueciSenha">Esqueci minha senha</string>
     <string name="criarConta">Criar uma nova conta</string>
-    <string name="title_activity_esqueci_senha">EsqueciSenha</string>
+    <string name="title_activity_esqueci_senha">Nova Senha</string>
     <string name="title_activity_cadastro">Cadastro</string>
     <string name="nome">Nome</string>
     <string name="Email">Email</string>
@@ -25,7 +25,6 @@
     <string name="editar">Editar</string>
     <string name="title_activity_historico_reciclagem">Histórico de Reciclagem</string>
     <string name="title_activity_pontos_de_reciclagem">Pontos de Reciclagem</string>
-    <string name="title_activity_ranking_pontos">RankingPontos</string>
     <string name="title_activity_ranking">Ranking</string>
 
     <string name="title_section1">Ranking Amigos</string>

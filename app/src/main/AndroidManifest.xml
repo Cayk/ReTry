@@ -33,11 +33,13 @@
         </activity>
         <activity
             android:name=".EsqueciSenha"
-            android:label="@string/title_activity_esqueci_senha" >
+            android:label="@string/title_activity_esqueci_senha"
+            android:parentActivityName=".Login">
         </activity>
         <activity
             android:name=".Cadastro"
-            android:label="@string/title_activity_cadastro" >
+            android:label="@string/title_activity_cadastro"
+            android:parentActivityName=".Login">
         </activity>
         <activity
             android:name=".EditarPerfil"

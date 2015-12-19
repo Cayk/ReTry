@@ -1,7 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.ufc.es.retry.HistoricoReciclagem">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    tools:context=".HistoricoReciclagem">
+
+    <item android:id="@+id/home" android:title="Home"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/editar_perfil" android:title="Editar Perfil"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/rankings" android:title="Rankings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/locais" android:title="Pontos de Reciclagem"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/historico" android:title="Histórico"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/sair" android:title="Sair"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+
+
 </menu>
