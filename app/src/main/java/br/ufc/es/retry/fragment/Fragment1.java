@@ -1,14 +1,12 @@
-package br.ufc.es.retry;
+package br.ufc.es.retry.fragment;
 
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import br.ufc.es.retry.R;
 
 /**
  * Created by user on 18/12/2015.

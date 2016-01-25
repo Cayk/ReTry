@@ -2,7 +2,6 @@ package br.ufc.es.retry;
 
 import java.util.Locale;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,9 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import br.ufc.es.retry.fragment.Fragment1;
+import br.ufc.es.retry.fragment.Fragment2;
 
 public class Ranking extends AppCompatActivity {
 
