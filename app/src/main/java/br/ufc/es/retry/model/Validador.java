@@ -1,4 +1,4 @@
-package br.ufc.es.retry;
+package br.ufc.es.retry.model;
 
 import android.text.Editable;
 import android.text.TextUtils;

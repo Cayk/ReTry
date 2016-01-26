@@ -1,13 +1,11 @@
 package br.ufc.es.retry;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -16,6 +14,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+
+import br.ufc.es.retry.model.Validador;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -81,6 +81,16 @@ public class Cadastro extends AppCompatActivity {
                                 Response response = okHttpClient.newCall(request).execute();
 
                                 String resultado = response.body().string();
+                                if(resultado.equals("-1")){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            editEmail.setError("Email já cadastrado");
+                                            editEmail.setFocusable(true);
+                                            editEmail.requestFocus();
+                                        }
+                                    });
+                                }
 
                                 Log.i("Script", "Entrou");
                             } catch (IOException e) {

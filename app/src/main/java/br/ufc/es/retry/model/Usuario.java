@@ -12,7 +12,7 @@ public class Usuario {
     private int nivel;
     private int exp;
 
-    public Usuario(String nome, String senha, String email, int nivel, int exp) {
+    public Usuario(int nome, String senha, String email, int nivel, int exp) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
