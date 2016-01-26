@@ -3,41 +3,112 @@ package br.ufc.es.retry;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
+import br.ufc.es.retry.model.Aplicacao;
+import br.ufc.es.retry.model.Usuario;
+import br.ufc.es.retry.model.Validador;
 
 public class Login extends AppCompatActivity {
+
+    private EditText edEmail;
+    private EditText edSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        edEmail = (EditText) findViewById(R.id.email);
+        edSenha = (EditText) findViewById(R.id.senha);
+        Button bt = (Button) findViewById(R.id.entrar);
+
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Validador.validateNotNull(edSenha, "Preencha o campo senha");
+
+                boolean email_valido = Validador.validadeEmail(edEmail.getText().toString());
+
+                if(!email_valido){
+                    edEmail.setError("Email inválido!");
+                    edEmail.setFocusable(true);
+                    edEmail.requestFocus();
+
+                }
+                else{
+
+                    final String email = edEmail.getEditableText().toString();
+                    final String senha = edSenha.getEditableText().toString();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            OkHttpClient okHttpClient = new OkHttpClient();
+
+                            RequestBody requestBody = new FormEncodingBuilder()
+                                    .add("email", email)
+                                    .add("senha", senha)
+                                    .build();
+                            //10.0.124.122
+                            Request request = new Request.Builder()
+                                    .url("http://10.0.2.2/webservice/FronteiraBuscarUsuario.php")
+                                    .post(requestBody)
+                                    .build();
+
+                            try {
+                                Response response = okHttpClient.newCall(request).execute();
+
+                                final String resultado = response.body().string();
+
+                                Log.i("Script", resultado+"");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (resultado.equals("-3")) {
+                                            Toast.makeText(Login.this, "Erro! Tente novamente", Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            GsonBuilder builder = new GsonBuilder();
+                                            Gson gson = builder.create();
+                                            Usuario usuario = gson.fromJson(resultado, Usuario.class);
+
+                                            Aplicacao aplicacao = (Aplicacao) getApplication();
+                                            aplicacao.setUsuario(usuario);
+                                            carregarTelaPrincipal();
+                                        }
+                                    }
+                                });
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void carregarTelaPrincipal(View view){
+    public void carregarTelaPrincipal(){
         Intent intent;
         intent = new Intent(this, MainActivity.class);
         startActivity(intent);

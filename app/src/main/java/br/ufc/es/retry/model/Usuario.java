@@ -12,7 +12,8 @@ public class Usuario {
     private int nivel;
     private int exp;
 
-    public Usuario(int nome, String senha, String email, int nivel, int exp) {
+    public Usuario(int id, String nome, String senha, String email, int nivel, int exp) {
+        this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;

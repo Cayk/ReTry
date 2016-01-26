@@ -1,5 +1,6 @@
 package br.ufc.es.retry.model;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,5 +39,28 @@ public class Validador {
         else{
             return Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
+    }
+
+    public static boolean validateInteger(View view){
+        if(view instanceof EditText){
+            Log.i("Script", "Entrou No ValidadeInteger!");
+
+            EditText editText = (EditText) view;
+            Editable text = editText.getText();
+            String txt = text.toString();
+
+            try {
+                Log.i("Script", "Entrou aqui!");
+
+                Integer.parseInt(txt);
+                return true;
+            }
+            catch (Exception e){
+                Log.i("Script", "Saiu Aqui");
+
+                return false;
+            }
+        }
+        return false;
     }
 }

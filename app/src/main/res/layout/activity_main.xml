@@ -64,6 +64,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editCat"
+        android:inputType="textCapWords"
         android:layout_below="@+id/textView17"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -85,6 +86,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editQtd"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/textQtd"
         android:layout_alignLeft="@+id/textQtd"
         android:layout_alignStart="@+id/textQtd" />

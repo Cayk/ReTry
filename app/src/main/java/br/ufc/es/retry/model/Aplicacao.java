@@ -20,4 +20,5 @@ public class Aplicacao extends Application{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
 }
