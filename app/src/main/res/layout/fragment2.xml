@@ -9,50 +9,11 @@
     tools:context="br.ufc.es.retry.Ranking$PlaceholderFragment">
 
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1- João"
-        android:id="@+id/textView11"
-        android:layout_marginTop="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2- Carlos"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/textView11"
-        android:layout_marginTop="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3- Pedro"
-        android:id="@+id/textView13"
-        android:layout_below="@+id/textView12"
-        android:layout_marginTop="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="4- Lucas"
-        android:id="@+id/textView14"
-        android:layout_below="@+id/textView13"
-        android:layout_marginTop="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5- Italo"
-        android:id="@+id/textView15"
-        android:layout_below="@+id/textView14"
-        android:layout_marginTop="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6- Mateus"
-        android:id="@+id/textView16"
-        android:layout_below="@+id/textView15"
-        android:layout_marginTop="24dp"/>
+        android:id="@+id/listView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

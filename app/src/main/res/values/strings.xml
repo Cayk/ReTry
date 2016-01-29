@@ -29,4 +29,6 @@
 
     <string name="title_section1">Ranking Amigos</string>
     <string name="title_section2">Ranking Geral</string>
+    <string name="NenhumItem">Nenhum item reciclado.</string>
+    <string name="deletarHist">Limpar histórico de reciclagem</string>
 </resources>

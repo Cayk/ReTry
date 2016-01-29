@@ -1,4 +1,4 @@
-package br.ufc.es.retry;
+package br.ufc.es.retry.list;
 
 import android.app.Activity;
 import android.util.SparseArray;
@@ -9,6 +9,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import br.ufc.es.retry.R;
+import br.ufc.es.retry.list.Group;
 
 /**
  * Created by user on 17/12/2015.

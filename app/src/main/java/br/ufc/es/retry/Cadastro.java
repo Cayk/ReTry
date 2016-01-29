@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -44,7 +45,7 @@ public class Cadastro extends AppCompatActivity {
                 Validador.validateNotNull(editNome, "Preencha o campo nome");
                 Validador.validateNotNull(editSenha, "Preencha o campo senha");
                 Validador.validateNotNull(editConfSenha, "Preencha o campo confirmar senha");
-
+                Validador.validateSenha(editSenha, editConfSenha, "Senhas diferentes!");
                 boolean email_valido = Validador.validadeEmail(editEmail.getText().toString());
 
                 if (!email_valido) {
@@ -73,24 +74,28 @@ public class Cadastro extends AppCompatActivity {
                                     .build();
 
                             Request request = new Request.Builder()
-                                    .url("http://10.0.2.2/webservice/FronteiraCadastrarUsuario.php")
+                                    .url("http://10.0.2.2/webservice/Visao/FronteiraCadastrarUsuario.php")
                                     .post(requestBody)
                                     .build();
 
                             try {
                                 Response response = okHttpClient.newCall(request).execute();
 
-                                String resultado = response.body().string();
-                                if(resultado.equals("-1")){
+                                final String resultado = response.body().string();
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            editEmail.setError("Email já cadastrado");
-                                            editEmail.setFocusable(true);
-                                            editEmail.requestFocus();
+                                            if(resultado.equals("-1")){
+                                                editEmail.setError("Email já cadastrado");
+                                                editEmail.setFocusable(true);
+                                                editEmail.requestFocus();
+                                            }
+                                            else {
+                                                Toast.makeText(Cadastro.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
                                         }
                                     });
-                                }
 
                                 Log.i("Script", "Entrou");
                             } catch (IOException e) {

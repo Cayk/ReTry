@@ -1,4 +1,4 @@
-package br.ufc.es.retry;
+package br.ufc.es.retry.list;
 
 import java.util.ArrayList;
 import java.util.List;

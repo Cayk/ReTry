@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import br.ufc.es.retry.fragment.Fragment1;
 import br.ufc.es.retry.fragment.Fragment2;
+import br.ufc.es.retry.service.ServiceRanking;
 
 public class Ranking extends AppCompatActivity {
 
@@ -36,6 +38,8 @@ public class Ranking extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabbar);
         tabLayout.setupWithViewPager(mViewPager);
+        Intent intent = new Intent(this, ServiceRanking.class);
+        startService(intent);
 
     }
 
@@ -56,26 +60,32 @@ public class Ranking extends AppCompatActivity {
             case R.id.home:
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             case R.id.editar_perfil:
                 Intent intent1 = new Intent(getApplicationContext(), EditarPerfil.class);
                 startActivity(intent1);
+                finish();
                 return true;
             case R.id.rankings:
                 Intent intent2 = new Intent(getApplicationContext(), Ranking.class);
                 startActivity(intent2);
+                finish();
                 return true;
             case R.id.locais:
                 Intent intent3 = new Intent(getApplicationContext(), PontosDeReciclagem.class);
                 startActivity(intent3);
+                finish();
                 return true;
             case R.id.historico:
                 Intent intent4 = new Intent(getApplicationContext(), HistoricoReciclagem.class);
                 startActivity(intent4);
+                finish();
                 return true;
             case R.id.sair:
                 Intent intent5 = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent5);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

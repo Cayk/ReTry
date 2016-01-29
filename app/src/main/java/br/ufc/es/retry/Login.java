@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                                     .build();
                             //10.0.124.122
                             Request request = new Request.Builder()
-                                    .url("http://10.0.2.2/webservice/FronteiraBuscarUsuario.php")
+                                    .url("http://10.0.2.2/webservice/Visao/FronteiraBuscarUsuario.php")
                                     .post(requestBody)
                                     .build();
 
@@ -82,9 +82,14 @@ public class Login extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         if (resultado.equals("-3")) {
-                                            Toast.makeText(Login.this, "Erro! Tente novamente", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, "Erro nos parametros! Tente novamente", Toast.LENGTH_SHORT).show();
 
-                                        } else {
+                                        }else if(resultado.equals("-8")){
+                                            Toast.makeText(Login.this, "Erro! Tente novamente", Toast.LENGTH_SHORT).show();
+                                        } else if(resultado.equals("-9")){
+                                            Toast.makeText(Login.this, "Preencha os campos corretamente", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
 
                                             GsonBuilder builder = new GsonBuilder();
                                             Gson gson = builder.create();
@@ -93,6 +98,7 @@ public class Login extends AppCompatActivity {
                                             Aplicacao aplicacao = (Aplicacao) getApplication();
                                             aplicacao.setUsuario(usuario);
                                             carregarTelaPrincipal();
+                                            finish();
                                         }
                                     }
                                 });

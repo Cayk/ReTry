@@ -13,14 +13,14 @@ import android.widget.EditText;
  */
 public class Validador {
 
-    public static boolean validateNotNull(View view, String mssg){
-        if(view instanceof EditText){
+    public static boolean validateNotNull(View view, String mssg) {
+        if (view instanceof EditText) {
             EditText editText = (EditText) view;
             Editable text = editText.getText();
 
-            if(text != null){
+            if (text != null) {
                 String strText = text.toString();
-                if(!TextUtils.isEmpty(strText) && strText.trim().length()>0)
+                if (!TextUtils.isEmpty(strText) && strText.trim().length() > 0)
                     return true;
             }
 
@@ -32,32 +32,49 @@ public class Validador {
         return false;
     }
 
-    public static boolean validadeEmail(String email){
-        if(TextUtils.isEmpty(email)){
+    public static boolean validadeEmail(String email) {
+        if (TextUtils.isEmpty(email)) {
             return false;
-        }
-        else{
+        } else {
             return Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
     }
 
-    public static boolean validateInteger(View view){
-        if(view instanceof EditText){
-            Log.i("Script", "Entrou No ValidadeInteger!");
+    public static boolean validateInteger(View view) {
+        if (view instanceof EditText) {
 
             EditText editText = (EditText) view;
             Editable text = editText.getText();
             String txt = text.toString();
 
             try {
-                Log.i("Script", "Entrou aqui!");
 
                 Integer.parseInt(txt);
                 return true;
+            } catch (Exception e) {
+                return false;
             }
-            catch (Exception e){
-                Log.i("Script", "Saiu Aqui");
+        }
+        return false;
+    }
 
+    public static boolean validateSenha(View view, View view1, String mssg) {
+        if (view instanceof EditText && view1 instanceof EditText) {
+            EditText editText = (EditText) view;
+            EditText editText1 = (EditText) view1;
+            Editable text = editText.getText();
+            Editable text1 = editText1.getText();
+
+            if (text != null && text1 != null) {
+                String strText = text.toString();
+                String strText1 = text1.toString();
+                if (strText.equals(strText1)) {
+                    return true;
+                }
+
+                editText1.setError(mssg);
+                editText1.setFocusable(true);
+                editText1.requestFocus();
                 return false;
             }
         }

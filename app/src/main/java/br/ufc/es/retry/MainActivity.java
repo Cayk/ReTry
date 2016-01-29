@@ -51,6 +51,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        txNome.setText(aplicacao.getUsuario().getNome());
+        txNivel.setText("Nível: "+aplicacao.getUsuario().getNivel()+"");
+        txExp.setText("Exp: "+aplicacao.getUsuario().getExp()+"/100");
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -86,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sair:
                 Intent intent5 = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent5);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     public void confirmarItem(View view){
-        Log.i("Script", "Entrou aqui!");
         Validador.validateNotNull(edCategoria, "Preencha o campo corretamente");
         Validador.validateNotNull(edQuantidade, "Formato inválido");
         boolean numero_valido = Validador.validateInteger(edQuantidade);
@@ -129,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                             .build();
 
                     Request request = new Request.Builder()
-                            .url("http://10.0.2.2/webservice/FronteiraAdicionarItemReciclado.php")
+                            .url("http://10.0.2.2/webservice/Visao/FronteiraAdicionarItemReciclado.php")
                             .post(requestBody)
                             .build();
 
@@ -158,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         Request request1 = new Request.Builder()
-                                .url("http://10.0.2.2/webservice/FronteiraSubirDeNivel.php")
+                                .url("http://10.0.2.2/webservice/Visao/FronteiraSubirDeNivel.php")
                                 .post(requestBody1)
                                 .build();
 
@@ -189,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         Request request1 = new Request.Builder()
-                                .url("http://10.0.2.2/webservice/FronteiraSubirDeNivel.php")
+                                .url("http://10.0.2.2/webservice/Visao/FronteiraSubirDeNivel.php")
                                 .post(requestBody1)
                                 .build();
 
