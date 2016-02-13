@@ -14,6 +14,8 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import br.ufc.es.retry.model.Aplicacao;
+
 /**
  * Created by kerran on 28/01/16.
  */
@@ -37,12 +39,14 @@ public class ServiceRanking extends Service{
             public void run() {
                 OkHttpClient okHttpClient = new OkHttpClient();
 
+                Aplicacao aplicacao = (Aplicacao) getApplication();
+
                 RequestBody requestBody = new FormEncodingBuilder()
                         .add("busca", "busca")
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://10.0.2.2/webservice/Visao/FronteiraBuscarTodosUsuarios.php")
+                        .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraBuscarTodosUsuarios.php")
                         .post(requestBody)
                         .build();
 

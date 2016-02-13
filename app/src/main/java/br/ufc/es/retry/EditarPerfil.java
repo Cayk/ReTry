@@ -126,7 +126,7 @@ public class EditarPerfil extends AppCompatActivity {
                             .build();
 
                     Request request = new Request.Builder()
-                            .url("http://10.0.2.2/webservice/Visao/FronteiraAtualizarUsuario.php")
+                            .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraAtualizarUsuario.php")
                             .post(requestBody)
                             .build();
 
@@ -136,7 +136,7 @@ public class EditarPerfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(EditarPerfil.this, "Perfil Atualizado com sucesso!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditarPerfil.this, "Perfil Atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         });

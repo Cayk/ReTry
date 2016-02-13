@@ -7,6 +7,8 @@ import android.app.Application;
  */
 public class Aplicacao extends Application{
     private  Usuario usuario;
+    private String ip = "10.0.2.2";
+    private String caminho = "/webservice/Visao/";
 
     @Override
     public void onCreate() {
@@ -21,4 +23,19 @@ public class Aplicacao extends Application{
         this.usuario = usuario;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getCaminho() {
+        return caminho;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
 }

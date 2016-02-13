@@ -29,12 +29,14 @@ public class Login extends AppCompatActivity {
 
     private EditText edEmail;
     private EditText edSenha;
+    Aplicacao aplicacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        aplicacao = (Aplicacao) getApplication();
         edEmail = (EditText) findViewById(R.id.email);
         edSenha = (EditText) findViewById(R.id.senha);
         Button bt = (Button) findViewById(R.id.entrar);
@@ -66,9 +68,9 @@ public class Login extends AppCompatActivity {
                                     .add("email", email)
                                     .add("senha", senha)
                                     .build();
-                            //10.0.124.122
+
                             Request request = new Request.Builder()
-                                    .url("http://10.0.2.2/webservice/Visao/FronteiraBuscarUsuario.php")
+                                    .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraBuscarUsuario.php")
                                     .post(requestBody)
                                     .build();
 

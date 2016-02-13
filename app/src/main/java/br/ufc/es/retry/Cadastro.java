@@ -16,6 +16,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import br.ufc.es.retry.model.Aplicacao;
 import br.ufc.es.retry.model.Validador;
 
 public class Cadastro extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class Cadastro extends AppCompatActivity {
     private EditText editEmail;
     private EditText editSenha;
     private EditText editConfSenha;
+    Aplicacao aplicacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,8 @@ public class Cadastro extends AppCompatActivity {
                         public void run() {
                             OkHttpClient okHttpClient = new OkHttpClient();
 
+                            aplicacao = (Aplicacao) getApplication();
+
                             RequestBody requestBody = new FormEncodingBuilder()
                                     .add("nome", nome)
                                     .add("senha", senha)
@@ -74,7 +78,7 @@ public class Cadastro extends AppCompatActivity {
                                     .build();
 
                             Request request = new Request.Builder()
-                                    .url("http://10.0.2.2/webservice/Visao/FronteiraCadastrarUsuario.php")
+                                    .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraCadastrarUsuario.php")
                                     .post(requestBody)
                                     .build();
 

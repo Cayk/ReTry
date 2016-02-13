@@ -15,6 +15,8 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import br.ufc.es.retry.model.Aplicacao;
+
 /**
  * Created by kerran on 25/01/16.
  */
@@ -38,6 +40,7 @@ public class ServiceEsqueciSenha extends Service{
             @Override
             public void run() {
 
+                Aplicacao aplicacao = (Aplicacao) getApplication();
                 OkHttpClient okHttpClient = new OkHttpClient();
 
                 RequestBody requestBody = new FormEncodingBuilder()
@@ -45,7 +48,7 @@ public class ServiceEsqueciSenha extends Service{
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://10.0.2.2/webservice/Visao/FronteiraEsqueciSenha.php")
+                        .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraEsqueciSenha.php")
                         .post(requestBody)
                         .build();
                 try {

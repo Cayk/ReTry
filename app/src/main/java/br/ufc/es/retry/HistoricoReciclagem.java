@@ -59,7 +59,7 @@ public class HistoricoReciclagem extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://10.0.2.2/webservice/Visao/FronteiraListarTodosItensReciclados.php")
+                        .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraListarTodosItensReciclados.php")
                         .post(requestBody)
                         .build();
 
@@ -109,7 +109,7 @@ public class HistoricoReciclagem extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://10.0.2.2/webservice/Visao/FronteiraDeletarTodosItens.php")
+                        .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraDeletarTodosItens.php")
                         .post(requestBody)
                         .build();
 

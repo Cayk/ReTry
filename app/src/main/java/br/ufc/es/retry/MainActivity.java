@@ -54,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         txNome.setText(aplicacao.getUsuario().getNome());
-        txNivel.setText("Nível: "+aplicacao.getUsuario().getNivel()+"");
+        txNivel.setText("Nível: " + aplicacao.getUsuario().getNivel() + "");
         txExp.setText("Exp: "+aplicacao.getUsuario().getExp()+"/100");
+
+        edCategoria.setText("");
+        edQuantidade.setText("");
     }
 
     @Override
@@ -138,11 +141,12 @@ public class MainActivity extends AppCompatActivity {
                             .add("categoria", categoria)
                             .add("quantidade",quantidade)
                             .add("pontuacao_obtida", pont)
-                            .add("localizacao", "Test")
+                            .add("latitude", "1")
+                            .add("longitude", "2")
                             .build();
 
                     Request request = new Request.Builder()
-                            .url("http://10.0.2.2/webservice/Visao/FronteiraAdicionarItemReciclado.php")
+                            .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraAdicionarItemReciclado.php")
                             .post(requestBody)
                             .build();
 
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         Request request1 = new Request.Builder()
-                                .url("http://10.0.2.2/webservice/Visao/FronteiraSubirDeNivel.php")
+                                .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
                                 .post(requestBody1)
                                 .build();
 
@@ -202,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                                 .build();
 
                         Request request1 = new Request.Builder()
-                                .url("http://10.0.2.2/webservice/Visao/FronteiraSubirDeNivel.php")
+                                .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
                                 .post(requestBody1)
                                 .build();
 
