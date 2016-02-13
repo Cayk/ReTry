@@ -1,6 +1,7 @@
 package br.ufc.es.retry;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -22,8 +26,11 @@ import java.io.IOException;
 import br.ufc.es.retry.model.Aplicacao;
 import br.ufc.es.retry.model.Validador;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
+    GoogleApiClient mGoogleApiClient;
+    private String latitude;
+    private String longitude;
     private EditText edCategoria;
     private EditText edQuantidade;
     private TextView txNome;
@@ -48,6 +55,25 @@ public class MainActivity extends AppCompatActivity {
         txNivel.setText("Nível: "+aplicacao.getUsuario().getNivel()+"");
         txExp.setText("Exp: "+aplicacao.getUsuario().getExp()+"/100");
 
+
+        if(mGoogleApiClient == null){
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+            onStart();
+        }
+    }
+
+    protected void onStart(){
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop(){
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -67,47 +93,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onConnected(Bundle bundle) {
+        try {
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            if(mLastLocation != null){
+                latitude = String.valueOf(mLastLocation.getLatitude());
+                longitude = String.valueOf(mLastLocation.getLongitude());
+
+                Log.i("Lat", latitude);
+                Log.i("long", longitude);
+            }
+        }catch (SecurityException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.editar_perfil:
-                Intent intent1 = new Intent(getApplicationContext(), EditarPerfil.class);
-                startActivity(intent1);
-                return true;
-            case R.id.rankings:
-                Intent intent2 = new Intent(getApplicationContext(), Ranking.class);
-                startActivity(intent2);
-                return true;
-            case R.id.locais:
-                Intent intent3 = new Intent(getApplicationContext(), PontosDeReciclagem.class);
-                startActivity(intent3);
-                return true;
-            case R.id.historico:
-                Intent intent4 = new Intent(getApplicationContext(), HistoricoReciclagem.class);
-                startActivity(intent4);
-                return true;
-            case R.id.sair:
-                Intent intent5 = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent5);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void onConnectionSuspended(int i) {
+        //TODO
     }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        //TODO
+    }
+
     public void confirmarItem(View view){
         Validador.validateNotNull(edCategoria, "Preencha o campo corretamente");
         Validador.validateNotNull(edQuantidade, "Formato inválido");
@@ -141,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                             .add("categoria", categoria)
                             .add("quantidade",quantidade)
                             .add("pontuacao_obtida", pont)
-                            .add("latitude", "1")
-                            .add("longitude", "2")
+                            .add("latitude", latitude)
+                            .add("longitude", longitude)
                             .build();
 
                     Request request = new Request.Builder()
@@ -225,6 +236,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }).start();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.home:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.editar_perfil:
+                Intent intent1 = new Intent(getApplicationContext(), EditarPerfil.class);
+                startActivity(intent1);
+                return true;
+            case R.id.rankings:
+                Intent intent2 = new Intent(getApplicationContext(), Ranking.class);
+                startActivity(intent2);
+                return true;
+            case R.id.locais:
+                Intent intent3 = new Intent(getApplicationContext(), PontosDeReciclagem.class);
+                startActivity(intent3);
+                return true;
+            case R.id.historico:
+                Intent intent4 = new Intent(getApplicationContext(), HistoricoReciclagem.class);
+                startActivity(intent4);
+                return true;
+            case R.id.sair:
+                Intent intent5 = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent5);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
