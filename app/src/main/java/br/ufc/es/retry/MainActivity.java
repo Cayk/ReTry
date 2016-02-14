@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 latitude = String.valueOf(mLastLocation.getLatitude());
                 longitude = String.valueOf(mLastLocation.getLongitude());
 
-                Log.i("Lat", latitude);
+                Log.i("Lat", latitude);   //-3.732705, -38.526763
                 Log.i("long", longitude);
             }
         }catch (SecurityException e){

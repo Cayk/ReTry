@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.ufc.es.retry" >
+    package="br.ufc.es.retry">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,11 +21,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".Login"
-            android:label="Retry" >
+            android:label="Retry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,36 +34,48 @@
         <activity
             android:name=".EsqueciSenha"
             android:label="@string/title_activity_esqueci_senha"
-            android:parentActivityName=".Login">
-        </activity>
+            android:parentActivityName=".Login" />
         <activity
             android:name=".Cadastro"
             android:label="@string/title_activity_cadastro"
-            android:parentActivityName=".Login">
-        </activity>
+            android:parentActivityName=".Login" />
         <activity
             android:name=".EditarPerfil"
-            android:label="@string/title_activity_editar_perfil" >
-        </activity>
+            android:label="@string/title_activity_editar_perfil" />
         <activity
             android:name=".HistoricoReciclagem"
-            android:label="@string/title_activity_historico_reciclagem" >
-        </activity>
+            android:label="@string/title_activity_historico_reciclagem" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".PontosDeReciclagem"
-            android:label="@string/title_activity_pontos_de_reciclagem" >
-        </activity>
-        <activity
             android:name=".Ranking"
-            android:label="@string/title_activity_ranking" >
-        </activity>
-        <service android:name=".service.ServiceEsqueciSenha"/>
-        <service android:name=".service.ServiceRanking"/>
+            android:label="@string/title_activity_ranking" />
+
+        <service android:name=".service.ServiceEsqueciSenha" />
+        <service android:name=".service.ServiceRanking" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".PontosDeReciclagem"
+            android:label="@string/title_activity_maps" />
+
+        <service
+            android:name=".service.ServicePontosMaps"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

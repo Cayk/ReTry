@@ -9,14 +9,16 @@ public class ItemReciclado {
     private String categoria;
     private int quantidade;
     private int pontuacao_obtida;
-    private String localizacao;
+    private String latitude;
+    private String longitude;
 
-    public ItemReciclado(int id_usuario, String categoria, int quantidade, int pontuacao_obtida, String localizacao) {
+    public ItemReciclado(int id_usuario, String categoria, int quantidade, int pontuacao_obtida, String latitude, String longitude) {
         this.id_usuario = id_usuario;
         this.categoria = categoria;
         this.quantidade = quantidade;
         this.pontuacao_obtida = pontuacao_obtida;
-        this.localizacao = localizacao;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId_item() {
@@ -59,11 +61,11 @@ public class ItemReciclado {
         this.pontuacao_obtida = pontuacao_obtida;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
-    }
+    public String getLatitude() { return latitude; }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
-    }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
+
+    public String getLongitude() { return longitude; }
+
+    public void setLongitude(String longitude) { this.longitude = longitude; }
 }

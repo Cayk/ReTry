@@ -7,7 +7,7 @@ import android.app.Application;
  */
 public class Aplicacao extends Application{
     private  Usuario usuario;
-    //10.0.2.2
+    //10.0.2.2 192.168.1.36
     private String ip = "192.168.1.36";
     private String caminho = "/webservice/Visao/";
 
