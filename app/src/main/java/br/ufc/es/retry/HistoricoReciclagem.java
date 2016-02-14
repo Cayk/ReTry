@@ -182,11 +182,19 @@ public class HistoricoReciclagem extends AppCompatActivity {
                 return true;
             case R.id.sair:
                 Intent intent5 = new Intent(getApplicationContext(), Login.class);
+                //intent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent5);
                 finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(HistoricoReciclagem.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         txExp = (TextView) findViewById(R.id.textExp);
 
         txNome.setText(aplicacao.getUsuario().getNome());
-        txNivel.setText("Nível: "+aplicacao.getUsuario().getNivel()+"");
-        txExp.setText("Exp: "+aplicacao.getUsuario().getExp()+"/100");
+        txNivel.setText("Nível: " + aplicacao.getUsuario().getNivel() + "");
+        txExp.setText("Exp: " + aplicacao.getUsuario().getExp() + "/100");
 
 
         if(mGoogleApiClient == null){
@@ -254,22 +254,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.home:
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             case R.id.editar_perfil:
                 Intent intent1 = new Intent(getApplicationContext(), EditarPerfil.class);
                 startActivity(intent1);
+                finish();
                 return true;
             case R.id.rankings:
                 Intent intent2 = new Intent(getApplicationContext(), Ranking.class);
                 startActivity(intent2);
+                finish();
                 return true;
             case R.id.locais:
                 Intent intent3 = new Intent(getApplicationContext(), PontosDeReciclagem.class);
                 startActivity(intent3);
+                finish();
                 return true;
             case R.id.historico:
                 Intent intent4 = new Intent(getApplicationContext(), HistoricoReciclagem.class);
                 startActivity(intent4);
+                finish();
                 return true;
             case R.id.sair:
                 Intent intent5 = new Intent(getApplicationContext(), Login.class);

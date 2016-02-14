@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setTitle("");
         aplicacao = (Aplicacao) getApplication();
         edEmail = (EditText) findViewById(R.id.email);
         edSenha = (EditText) findViewById(R.id.senha);
