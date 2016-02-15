@@ -138,6 +138,8 @@ public class EditarPerfil extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(EditarPerfil.this, "Perfil Atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(EditarPerfil.this, MainActivity.class);
+                                startActivity(intent);
                                 finish();
                             }
                         });
