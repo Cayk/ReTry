@@ -20,6 +20,7 @@ public class Validador {
 
             if (text != null) {
                 String strText = text.toString();
+                Log.i("Len", strText.trim().length()+"");
                 if (!TextUtils.isEmpty(strText) && strText.trim().length() > 0)
                     return true;
             }
@@ -27,6 +28,22 @@ public class Validador {
             editText.setError(mssg);
             editText.setFocusable(true);
             editText.requestFocus();
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean validate(View view) {
+        if (view instanceof EditText) {
+            EditText editText = (EditText) view;
+            Editable text = editText.getText();
+
+            if (text != null) {
+                String strText = text.toString();
+                Log.i("Len", strText.trim().length()+"");
+                if (!TextUtils.isEmpty(strText) && strText.trim().length() > 0)
+                    return true;
+            }
             return false;
         }
         return false;
@@ -49,7 +66,7 @@ public class Validador {
 
             try {
 
-                Integer.parseInt(txt);
+                int valor = Integer.parseInt(txt);
                 return true;
             } catch (Exception e) {
                 return false;

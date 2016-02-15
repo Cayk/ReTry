@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void confirmarItem(View view){
-        Validador.validateNotNull(edCategoria, "Preencha o campo corretamente");
+
         Validador.validateNotNull(edQuantidade, "Formato inválido");
         boolean numero_valido = Validador.validateInteger(edQuantidade);
         if (!numero_valido){
@@ -128,114 +128,144 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             edQuantidade.setFocusable(true);
             edQuantidade.requestFocus();
         }
-        else{
-            final String categoria = edCategoria.getEditableText().toString();
+
+        boolean valido1 = Validador.validate(edCategoria);
+        if(!valido1){
+            edCategoria.setError("Formato inválido");
+            edCategoria.setFocusable(true);
+            edCategoria.requestFocus();
+        }
+        else {
+            final String categoria = edCategoria.getEditableText().toString().trim();
             final int quantidade = Integer.parseInt(edQuantidade.getEditableText().toString());
-            final int totalExpObtida = quantidade * 2;
-            final int nivel = aplicacao.getUsuario().getNivel();
-            final int expSoma = aplicacao.getUsuario().getExp() + totalExpObtida;
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            if (quantidade > 100) {
+                edQuantidade.setError("Não minta!");
+                edQuantidade.setFocusable(true);
+                edQuantidade.requestFocus();
+            }
+            else{
+                final int totalExpObtida = quantidade * 2;
+                final int nivel = aplicacao.getUsuario().getNivel();
+                final int expSoma = aplicacao.getUsuario().getExp() + totalExpObtida;
 
-                    String nivel1;
-                    String exp;
-                    OkHttpClient okHttpClient = new OkHttpClient();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    String id = String.valueOf(aplicacao.getUsuario().getId());
-                    String quantidade = edQuantidade.getEditableText().toString();
-                    String pont = String.valueOf(totalExpObtida);
+                        String nivel1;
+                        String exp;
+                        OkHttpClient okHttpClient = new OkHttpClient();
 
-                    RequestBody requestBody = new FormEncodingBuilder()
-                            .add("id_usuario",id)
-                            .add("categoria", categoria)
-                            .add("quantidade",quantidade)
-                            .add("pontuacao_obtida", pont)
-                            .add("latitude", latitude)
-                            .add("longitude", longitude)
-                            .build();
+                        String id = String.valueOf(aplicacao.getUsuario().getId());
+                        String quantidade = edQuantidade.getEditableText().toString();
+                        String pont = String.valueOf(totalExpObtida);
 
-                    Request request = new Request.Builder()
-                            .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraAdicionarItemReciclado.php")
-                            .post(requestBody)
-                            .build();
+                        Log.i("Categori", categoria);
+                        Log.i("Categoria", categoria.length() + "");
+                        Log.i("id", id + "");
+                        Log.i("pont", pont + "");
+                        Log.i("lat", latitude + "");
+                        Log.i("long", longitude + "");
 
-                    try {
-                        Response response = okHttpClient.newCall(request).execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if( expSoma >= 100){
-                        int expSobrando = expSoma - 100;
-                        aplicacao.getUsuario().setNivel(nivel + 1);
-                        if(expSobrando >1){
-                            aplicacao.getUsuario().setExp(expSobrando);
-                        }
-                        else{
-                            aplicacao.getUsuario().setExp(1);
-                        }
-
-                        nivel1 = String.valueOf(aplicacao.getUsuario().getNivel());
-                        exp = String.valueOf(aplicacao.getUsuario().getExp());
-
-                        RequestBody requestBody1 = new FormEncodingBuilder()
-                                .add("id", id)
-                                .add("nivel", nivel1)
-                                .add("exp", exp)
+                        RequestBody requestBody = new FormEncodingBuilder()
+                                .add("id_usuario", id)
+                                .add("categoria", categoria)
+                                .add("quantidade", quantidade)
+                                .add("pontuacao_obtida", pont)
+                                .add("latitude", latitude)
+                                .add("longitude", longitude)
                                 .build();
 
-                        Request request1 = new Request.Builder()
-                                .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
-                                .post(requestBody1)
+                        Request request = new Request.Builder()
+                                .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraAdicionarItemReciclado.php")
+                                .post(requestBody)
                                 .build();
 
                         try {
-                            Response response1 = okHttpClient.newCall(request1).execute();
+                            Response response = okHttpClient.newCall(request).execute();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                txNivel.setText("Nível: " + aplicacao.getUsuario().getNivel() + "");
-                                txExp.setText("Exp: "+aplicacao.getUsuario().getExp()+"/100");
-                                Toast.makeText(MainActivity.this,"Item reciclado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                        if (expSoma >= 100) {
+
+                            int nivelNovo = aplicacao.getUsuario().getNivel();
+                            int sum = expSoma;
+                            int expSobrando = 0;
+                            while (sum > 100){
+                                sum = sum - 100;
+                                nivelNovo++;
+                                expSobrando = sum;
                             }
-                        });
-                    }
-                    else{
-                        aplicacao.getUsuario().setExp(expSoma);
 
-                        nivel1 = String.valueOf(aplicacao.getUsuario().getNivel());
-                        exp = String.valueOf(aplicacao.getUsuario().getExp());
+                            aplicacao.getUsuario().setNivel(nivelNovo);
+                            if (expSobrando > 1) {
+                                aplicacao.getUsuario().setExp(expSobrando);
+                            } else {
+                                aplicacao.getUsuario().setExp(1);
+                            }
 
-                        RequestBody requestBody1 = new FormEncodingBuilder()
-                                .add("id", id)
-                                .add("nivel", nivel1)
-                                .add("exp", exp)
-                                .build();
+                            nivel1 = String.valueOf(aplicacao.getUsuario().getNivel());
+                            exp = String.valueOf(aplicacao.getUsuario().getExp());
 
-                        Request request1 = new Request.Builder()
-                                .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
-                                .post(requestBody1)
-                                .build();
+                            RequestBody requestBody1 = new FormEncodingBuilder()
+                                    .add("id", id)
+                                    .add("nivel", nivel1)
+                                    .add("exp", exp)
+                                    .build();
 
-                        try {
-                            Response response1 = okHttpClient.newCall(request1).execute();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            Request request1 = new Request.Builder()
+                                    .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
+                                    .post(requestBody1)
+                                    .build();
+
+                            try {
+                                Response response1 = okHttpClient.newCall(request1).execute();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txNivel.setText("Nível: " + aplicacao.getUsuario().getNivel() + "");
+                                    txExp.setText("Exp: " + aplicacao.getUsuario().getExp() + "/100");
+                                    Toast.makeText(MainActivity.this, "Item reciclado com sucesso!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            aplicacao.getUsuario().setExp(expSoma);
+
+                            nivel1 = String.valueOf(aplicacao.getUsuario().getNivel());
+                            exp = String.valueOf(aplicacao.getUsuario().getExp());
+
+                            RequestBody requestBody1 = new FormEncodingBuilder()
+                                    .add("id", id)
+                                    .add("nivel", nivel1)
+                                    .add("exp", exp)
+                                    .build();
+
+                            Request request1 = new Request.Builder()
+                                    .url("http://" + aplicacao.getIp() + aplicacao.getCaminho() + "FronteiraSubirDeNivel.php")
+                                    .post(requestBody1)
+                                    .build();
+
+                            try {
+                                Response response1 = okHttpClient.newCall(request1).execute();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txExp.setText("Exp: " + aplicacao.getUsuario().getExp() + "/100");
+                                    Toast.makeText(MainActivity.this, "Item reciclado com sucesso!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                txExp.setText("Exp: " + aplicacao.getUsuario().getExp() + "/100");
-                                Toast.makeText(MainActivity.this,"Item reciclado com sucesso!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     }
-                }
-            }).start();
+                }).start();
+            }
         }
     }
     @Override

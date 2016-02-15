@@ -67,7 +67,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBctBhx38szthFBIjdMF_xIgdIEPO4XSnI" />
 
         <activity
             android:name=".PontosDeReciclagem"
@@ -76,7 +76,7 @@
         <service
             android:name=".service.ServicePontosMaps"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>
