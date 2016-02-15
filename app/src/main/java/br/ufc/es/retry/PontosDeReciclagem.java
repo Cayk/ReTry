@@ -62,7 +62,7 @@ public class PontosDeReciclagem extends FragmentActivity implements OnMapReadyCa
 
                             LatLng ponto = new LatLng(latitude, longitude);
                             mMap.addMarker(new MarkerOptions().position(ponto).title(itemReciclado[i].getCategoria()+ ": "+ itemReciclado[i].getQuantidade()+" itens"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ponto, 20));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ponto, 15));
                         }
                     }
                 }

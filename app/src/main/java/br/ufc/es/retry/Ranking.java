@@ -110,8 +110,6 @@ public class Ranking extends AppCompatActivity {
             // Return a Fragment1 (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return Fragment1.newInstance(position + 1);
-                case 1:
                     return Fragment2.newInstance(position + 1);
             }
             return null;
@@ -119,7 +117,7 @@ public class Ranking extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
 
         @Override
@@ -127,8 +125,6 @@ public class Ranking extends AppCompatActivity {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
             }
             return null;

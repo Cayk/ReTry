@@ -53,7 +53,7 @@
 
         <activity
             android:name=".Ranking"
-            android:label="@string/title_activity_ranking" />
+            android:label="" />
 
         <service android:name=".service.ServiceEsqueciSenha" />
         <service android:name=".service.ServiceRanking" />
